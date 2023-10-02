@@ -123,10 +123,125 @@ class Person {
 
 ### 注释
 
+为了一般化管理，注释也需要做出特定办法。  
+
+1. 每一个文件开头必须做出文档注释，以`///`开头。
+2. 每一个函数和类必须做出文档注释，以`/***/`开头，并且，内容包括`@author`, `@date`, `@brief`(也就是对应的作者、日期、和简要),**在必要情况下，请加上`@param`、`@return`**
+3. 对于变量的注释，采取有必要则注释的方法，以`//`开头即可
+
+``` dart
+/*** 规范一 ***/
+// in Person.dart
+
+/// This is .....
+/// ....
+
+/*** 规范二 ***/
+/*
+* @author Miao
+* @date 2023/10/02
+* @brief for string comparing
+* @param src the source string
+* @param dst the destination string
+* @return if src < dst, return -1, if src > dst, return 1, other return 0
+**/
+int strcmp(String src, String dst);
+
+/*** 规范三 ***/
+int num = 0; // comment
+```
+
 ### 函数
+
+对于函数，我们有以下实行办法：
+
+1. 函数名必须知名见意，且风格以**小驼峰**为主。
+2. 必须加上必要的函数注释规范
+3. 在非特殊情况下，函数尽量能够适应于多种接口，以提高重用。
+4. 如果函数十分简单，且内部无修改，尽量使用`const`以实现`编译期计算`
+5. 非必要，不要加上`static`，除非是在类中作为公有函数
+
+``` dart
+/*** 规范一 ***/
+void fromJson(Map<T>);
+void from_json(Map<T>); // [err] 不符合规范一
+
+/*** 规范二 ***/
+/*
+* @author Miao
+* @date 2023/10/02
+* @brief use Json format to init a object
+**/
+void fromJson(Map<T>);
+
+/*** 规范三 ***/
+Person.fromJson(...);
+Cat.fromJson(...);
+
+printJson(String);
+printJson(num);
+...
+
+/*** 规范四 ***/
+const int getNum() {
+    return this.num;
+}
+
+/*** 规范五 ***/
+static int add(int x) {
+    return x;
+} // [err] 违反规范五，几乎没有意义
+
+Point.distanceTo(Point, Point); // [ok]
+```
 
 ### 类
 
+对于类，我们采用以下办法：
+
+1. 类名知名见意，以**大驼峰**命名风格
+2. 加上必要的注释
+3. **类必须单一文件，严禁其他外部代码直接访问类中成员**
+4. 禁止一切`getter`和`setter`
+5. 严格区分`operator`、`构造函数`、以及成员变量和成员函数
+
+``` dart
+/*** 规范一 ***/
+class PersonInfo;
+
+/*** 规范三 ***/
+// in PersonInfo.dart
+class PersonInfo {
+    int    _age;
+    String _name;
+    String _addr;
+
+    int get _age => _age;               // [err] 严格禁止
+    set _age(int age) => _age = age;    // [err] 严格禁止
+
+    /*** 规范五 ***/
+    PersonInfo();
+    PersonInfo(this._age);
+    ...
+    PersonInfo(this._age, this._name, this._addr);
+
+    PersonInfo operator+ (PersonInfo); 
+    PersonInfo operator- (PersonInfo);
+    ...
+    PersonInfo operator...
+}
+
+int getAge() {
+    return PersonInfo()._age;           // [err] 严格禁止
+}
+```
+
 ### 接口/抽象
+
+对于接口与抽象的实行办法：
+
+1. 命名风格依照类规范一实行
+2. 尽可能的使得接口和抽象满足大部分需求
+3. 不会导致过高的耦合度
 
 ### 更多细化
