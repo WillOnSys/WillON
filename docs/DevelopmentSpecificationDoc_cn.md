@@ -1,8 +1,31 @@
+<!-- 
+@author: Chen Miao  
+@date: 2023/10/9 
+-->
+
 # 开发规范文档
 
-主要用于团队内开发准则，使得项目具有可读性和低耦合。
+主要用于团队内开发准则，使得项目具有可读性和低耦合。  
 
-## Overview
+## 目录  
+
+1. [Overview](#Overview)
+2. [Git提交办法](#Git)
+3. [变量](#Variable)  
+    3.1. [普通变量](#GeneralVariable)  
+    3.2. [常量](#ConstVariable)  
+    3.3. [成员变量](#MemberVariable)  
+    3.4. [static](#Static)
+4. [注释](#Comment)
+5. [函数](#Function)
+6. [类](#Class)
+7. [接口/抽象](#AbstractInterface)
+8. [更多细化](#More)  
+    8.1. [关于重复widget试行办法](#LambdaWidget)
+
+---  
+
+##  1. <a name='Overview'></a>Overview
 
 | 作用对象 | 规则 | 作用对象 | 规则 |  
 | :---: | :--- | :---: | :--- |  
@@ -10,7 +33,9 @@
 | 类 | 知名见意，主要依照标准库 | 接口/抽象 | 知名见意 |
 | 各种细化规则 | ... | ... | ... |  
 
-### Git提交办法
+---  
+
+##  2. <a name='Git'></a>Git提交办法
 
 > 针对git进行管理代码版本的提交方法
 
@@ -28,21 +53,25 @@
 > git commit -m "test: ..."
 ```
 
-- 注意：**该提交办法适用于自己拉取的feature分支或dev分支，*严禁一切在main分支上的修改和提交***。
+- 注意：**该提交办法适用于自己拉取的feature分支或dev分支，*严禁一切在main分支上的修改和提交***。  
 
-### 变量
+---
+
+##  3. <a name='Variable'></a>变量
 
 > 针对于变量来说，主要分为`普通变量`、`成员变量`、`常量`以及`static`
 
-#### 普通变量
+###  3.1. <a name='GeneralVariable'></a>普通变量
 
-1. 对于`普通变量`的实行方法主要是，以**蛇形命名方法**，可以搭配缩写，但尽量知名见意(情况实在不允许的情况下，请写全含义)。  
-2. **必须初始化**，严禁出现非初始化的情况发生(特例，在`?`的作用下，可以不必强制初始化)。
+~~1. 对于`普通变量`的实行方法主要是，以**蛇形命名方法**，可以搭配缩写，但尽量知名见意(情况实在不允许的情况下，请写全含义)。**v0.1.0初案，现已被否决**~~  
+
+1. 对于`普通变量`的实行方法主要是，以**小驼峰命名方法**，可以搭配缩写，但尽量知名见意(情况实在不允许的情况下，请写全含义)。  
+2. **必须初始化**，严禁出现非初始化的情况发生(特例，在`?`的作用下，可以不必强制初始化)。  
 3. **如果该类型可能导致`Null`的发生，请一定要使用`?`**。
 
 ``` dart
 /*** 规范一 ***/
-var this_is_num = 0;
+var thisIsNum = 0;
 String name = "miao"; // 禁止随意使用var a, b, c...
 
 /*** 规范二 ***/
@@ -54,7 +83,7 @@ String? name;
 // String name; [err] 是不被允许的，String?的情况下会默认为Null
 ```
 
-#### 常量
+###  3.2. <a name='ConstVariable'></a>常量
 
 对于`常量`的实行方法主要是，以**大写命名方法，用下划线间隔**，可以搭配缩写，但尽量知名见意。
 
@@ -66,7 +95,7 @@ const MAX_SIZE = 10;
 // [err] const MAX_SIZE;
 ```
 
-#### 成员变量
+###  3.3. <a name='MemberVariable'></a>成员变量
 
 > 前提条件：因为在dart中没有特别强调成员的`公私属性`，因此，我们需要指定一套规范  
 
@@ -103,14 +132,14 @@ class Person {
 }
 ```
 
-#### static
+###  3.4. <a name='Static'></a>static
 
 1. 对于`static`的实行办法是，如果`static`没有外加`const`，那么采用一般变量规则，否则采用常量规则。
 2. **禁止`static`变量作为私有成员变量**
 
 ``` dart
 /*** 规范一 ***/
-static var this_is_number = 0;
+static var thisIsNum = 0;
 static var n; // [err] 触发一般变量规则
 
 static const int MAX_SIZE = 10;
@@ -121,7 +150,9 @@ class Person {
 }
 ```
 
-### 注释
+---  
+
+##  4. <a name='Comment'></a>注释
 
 为了一般化管理，注释也需要做出特定办法。  
 
@@ -151,7 +182,9 @@ int strcmp(String src, String dst);
 int num = 0; // comment
 ```
 
-### 函数
+---  
+
+##  5. <a name='Function'></a>函数
 
 对于函数，我们有以下实行办法：
 
@@ -195,7 +228,9 @@ static int add(int x) {
 Point.distanceTo(Point, Point); // [ok]
 ```
 
-### 类
+---
+
+##  6. <a name='Class'></a>类
 
 对于类，我们采用以下办法：
 
@@ -236,7 +271,9 @@ int getAge() {
 }
 ```
 
-### 接口/抽象
+---
+
+##  7. <a name='AbstractInterface'></a>接口/抽象
 
 对于接口与抽象的实行办法：
 
@@ -244,4 +281,118 @@ int getAge() {
 2. 尽可能的使得接口和抽象满足大部分需求
 3. 不会导致过高的耦合度
 
-### 更多细化
+---  
+
+##  8. <a name='More'></a>更多细化
+
+###  8.1. <a name='LambdaWidget'></a>关于重复widget试行办法
+
+> 在实际编程中，由于各种组件会经常重复性使用，因此导致**代码量及其冗余**，为解决此情况的发生，故有此办法。
+
+1. 对于冗余组件代码，**尽可能抽离一切元素，使用`lambda(闭包)`函数、或使用`细粒度widget`进行封装**  
+2. 由于组件的多样性和功能性多元化，因此对于封装组件不做特别严格要求，**尽量在本文件内进行封装，同时满足`函数规范`和`类规范`**
+3. **严禁外部文件直接调用该闭包函数、或细粒度widget，尽可能的使用`static`进行修饰该闭包函数**  
+4. **特例：该闭包函数允许被使用为私有函数(与`函数规范规范五`相悖)**  
+
+```dart
+@override
+Widget build(BuildContext context) {
+    return Scaffold(
+        body: Column(
+            children: [
+                Flex(
+                    direction: Axis.horizontal,
+                    children: [
+                        Expanded(
+                            flex: 1,
+                            child: Container(
+                                height: 30.0,
+                                color: Colors.red,
+                            ),
+                        ),
+                        Expanded(
+                            flex: 2,
+                            child: Container(
+                                height: 30.0,
+                                color: Colors.blue,
+                            ),
+                        ),
+                    ],
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: SizedBox(
+                        height: 100.0,
+                        child: Flex(
+                            direction: Axis.vertical,
+                            children: [
+                                Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                        height: 30.0,
+                                        color: Colors.red,
+                                    ),
+                                ),
+                                Spacer(flex: 1,),
+                                Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                        height: 30.0,
+                                        color: Colors.red,
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
+                ),
+            ],
+        ),
+    );
+}
+```
+
+可以看见，此处的代码中，`Expanded`组件的冗余度过高，仅仅只有内部的一些元素需要更改，因此，我们可以抽出必要的元素进行封装：
+
+```dart
+static var expandedFunc = (int flex, double height, Color? color) {
+    return Expanded(
+        flex: flex,
+        child: Container(
+            height: height,
+            color: color,
+        ),
+    );
+};
+@override
+Widget build(BuildContext context) {
+    return Scaffold(
+        body: Column(
+            children: [
+                Flex(
+                    direction: Axis.horizontal,
+                    children: [
+                        expandedFunc(1, 30.0, Colors.red),
+                        expandedFunc(2, 30.0, Colors.blue),
+                    ],
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: SizedBox(
+                        height: 100.0,
+                        child: Flex(
+                            direction: Axis.vertical,
+                            children: [
+                                expandedFunc(2, 30.0, Colors.red),
+                                Spacer(flex: 1,),
+                                expandedFunc(1, 30.0, Colors.green),
+                            ],
+                        ),
+                    ),
+                ),
+            ],
+        ),
+    );
+}
+```
+
+当我们将`Expanded`组件抽离为`expandedFunc`后，我们通过函数调用的方式轻易的实现了冗余的代码。
