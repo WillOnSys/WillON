@@ -1,0 +1,16 @@
+# For ui_example
+ui_example/.dart_tool/**
+ui_example/.idea/**
+ui_example/build/**
+
+# For other architecture
+ui_example/android/**
+ui_example/ios/**
+ui_example/macos/**
+ui_example/linux/**
+ui_example/web/**
+
+# For files
+**/*.iml
+**/*.lock
+**/*.metadata
