@@ -14,3 +14,4 @@ ui_example/web/**
 **/*.iml
 **/*.lock
 **/*.metadata
+**/*.flutter*
