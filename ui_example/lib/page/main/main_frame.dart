@@ -1,6 +1,6 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:ui_example/dashboard.dart';
+import 'package:ui_example/page/dashboard/dashboard.dart';
 
 class WillONMainFrame extends StatefulWidget {
   @override

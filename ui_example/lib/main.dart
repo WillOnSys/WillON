@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:ui_example/main_frame.dart';
+import 'package:ui_example/page/main/main_frame.dart';
 
 /**
  * @author Chen Miao
