@@ -1,4 +1,6 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:ui_example/dashboard.dart';
 
 class WillONMainFrame extends StatefulWidget {
   @override
@@ -45,7 +47,7 @@ class WillONMainFrameState extends State<WillONMainFrame> {
   @override
   Widget build(BuildContext context) {
     Widget appPage = switch(_chooseAppIdx) {
-      0 => Scaffold(body: Text("dashdoard"),),
+      0 => DashBoardPage(),
       1 => Scaffold(body: Text("all blogs"),),
       2 => Scaffold(body: Text("messages"),),
       3 => Scaffold(body: Text("friends"),),
@@ -61,39 +63,54 @@ class WillONMainFrameState extends State<WillONMainFrame> {
         var _baseColorTheme = Theme.of(context).colorScheme.primaryContainer;
         return Scaffold(
           backgroundColor: _baseColorTheme,
-          body: Row(
+          body: Column(
             children: [
-              SafeArea(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(100.0, 40.0, 100.0, 40.0),
-                        child: Text('Will ON', style: TextStyle(fontSize: 32.0),),
-                      ),
-                      _navigationBox(200, 300, _baseColorTheme, _applicationList, _chooseAppIdx, (value){
-                        setState(() {
-                          _chooseAppIdx = value;
-                        });
-                      }),
-                      SizedBox(
-                        height: 100,
-                      ),
-                      _navigationBox(200, 100, _baseColorTheme, _settingList, _chooseSetIdx, (value){
-                        setState(() {
-                          _chooseSetIdx = value;
-                        });
-                      }),
-                    ],
+              WindowTitleBarBox(
+                child: MoveWindow(
+                  child: Container(
+                    color: Colors.blueGrey,
                   ),
+                ),
               ),
               Expanded(
-                child: Container(
-                  color: Colors.white,
-                  // TODO 这里需要构思一个良构去解决app和set page的冲突
-                  // TIPS 可以采取使用反射
-                  // child: switch (appPage) {
-
-                  // },
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SafeArea(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(75.0, 40.0, 75.0, 40.0),
+                              child: Text('Will ON', style: TextStyle(fontSize: 32.0),),
+                            ),
+                            _navigationBox(200, 300, _baseColorTheme, _applicationList, _chooseAppIdx, (value){
+                              setState(() {
+                                _chooseAppIdx = value;
+                              });
+                            }),
+                            SizedBox(
+                              height: 100,
+                            ),
+                            _navigationBox(200, 100, _baseColorTheme, _settingList, _chooseSetIdx, (value){
+                              setState(() {
+                                _chooseSetIdx = value;
+                              });
+                            }),
+                          ],
+                        ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        color: Colors.white,
+                        // TODO 这里需要构思一个良构去解决app和set page的冲突
+                        // TIPS 可以采取使用反射
+                        child: appPage,
+                        // child: switch (appPage) {
+              
+                        // },
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

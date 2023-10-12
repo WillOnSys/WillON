@@ -3,6 +3,7 @@
 /// @date 2023/10/11
 
 import 'package:flutter/material.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:ui_example/main_frame.dart';
 
 /**
@@ -29,4 +30,10 @@ void main() {
   runApp(
     const WillON(),
   );
+  doWhenWindowReady(() {
+    const initialSize = Size(1440, 680);
+    appWindow.minSize = initialSize;
+    appWindow.size = initialSize;
+    appWindow.show();
+  });
 }
