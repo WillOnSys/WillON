@@ -31,9 +31,9 @@ void main() {
     const WillON(),
   );
   doWhenWindowReady(() {
-    const initialSize = Size(1440, 680);
-    appWindow.minSize = initialSize;
-    appWindow.size = initialSize;
+    // const initialSize = Size(1440, 680);
+    // appWindow.minSize = initialSize;
+    // appWindow.size = initialSize;
     appWindow.show();
   });
 }

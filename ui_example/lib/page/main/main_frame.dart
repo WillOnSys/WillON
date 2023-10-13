@@ -69,6 +69,15 @@ class WillONMainFrameState extends State<WillONMainFrame> {
                 child: MoveWindow(
                   child: Container(
                     color: Colors.blueGrey,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Will ON'),
+                        MinimizeWindowButton(),
+                        MaximizeWindowButton(),
+                        CloseWindowButton(),
+                      ],
+                    ),
                   ),
                 ),
               ),
