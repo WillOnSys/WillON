@@ -6,7 +6,7 @@ class FirstPage extends StatelessWidget {
     BlogCard(
       Text('Blog1', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),), 
       Text('For Test Blog Card'), 
-      'lib/images/dashboard/book.jpg', 
+      'assets/dashboard/book.jpg', 
       Icon(Icons.access_time_filled_rounded),
       Colors.blue
     ),
