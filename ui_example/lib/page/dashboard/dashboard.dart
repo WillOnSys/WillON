@@ -3,8 +3,8 @@
 /// @data 2023/10/12
 
 import 'package:flutter/material.dart';
-import 'package:ui_example/page/dashboard/dashboard_first.dart';
-import 'package:ui_example/page/dashboard/dashboard_second.dart';
+import 'package:ui_example/page/dashboard/widgets/dashboard_first.dart';
+import 'package:ui_example/page/dashboard/widgets/dashboard_second.dart';
 
 class DashBoardPage extends StatelessWidget {
   @override

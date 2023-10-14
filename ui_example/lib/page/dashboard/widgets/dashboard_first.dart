@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_example/page/dashboard/util.dart';
+import 'package:ui_example/page/dashboard/widgets/util.dart';
 
 class FirstPage extends StatelessWidget {
   final List<BlogCard> _cardList = [
