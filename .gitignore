@@ -9,6 +9,7 @@ ui_example/ios/**
 ui_example/macos/**
 ui_example/linux/**
 ui_example/web/**
+ui_example/windows/**
 
 # For files
 **/*.iml
