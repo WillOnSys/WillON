@@ -20,10 +20,11 @@
 5. [函数](#Function)
 6. [类](#Class)
 7. [接口/抽象](#AbstractInterface)
-8. [更多细化](#More)  
+8. [项目结构](#ProjectStructure)
+9. [更多细化](#More)  
     8.1. [关于重复widget试行办法](#LambdaWidget)
 
----  
+---
 
 ##  1. <a name='Overview'></a>Overview
 
@@ -33,7 +34,7 @@
 | 类 | 知名见意，主要依照标准库 | 接口/抽象 | 知名见意 |
 | 各种细化规则 | ... | ... | ... |  
 
----  
+---
 
 ##  2. <a name='Git'></a>Git提交办法
 
@@ -150,7 +151,7 @@ class Person {
 }
 ```
 
----  
+---
 
 ##  4. <a name='Comment'></a>注释
 
@@ -182,7 +183,7 @@ int strcmp(String src, String dst);
 int num = 0; // comment
 ```
 
----  
+---
 
 ##  5. <a name='Function'></a>函数
 
@@ -281,11 +282,113 @@ int getAge() {
 2. 尽可能的使得接口和抽象满足大部分需求
 3. 不会导致过高的耦合度
 
----  
+---
 
-##  8. <a name='More'></a>更多细化
+## 8. <a name='ProjectStructure'></a>项目结构
 
-###  8.1. <a name='LambdaWidget'></a>关于重复widget试行办法
+本项目（feature/ui）总体项目结构如下：
+
+```
+WillON
+|-------docs		  				 			#用于存放开发文档明细
+|	   	|-------DevelopmentSpecificationDoc_cn.md
+|
+|-------ui_example
+|		|-------assets 				  			#存放所有静态资源
+|		|-------build  				  			#存放构建过程中的临时文件 NOTE:不要去修改它
+|		|-------lib	   				  			#存放源文件
+|		|		|-------page		  			#存放页面Widget
+|		|				|-------dashboard
+|		|				|-------allblogs
+|		|				|-------directory
+|		|				|-------friends
+|		|				|-------main
+|		|				|-------messages
+|		|				|-------schedule
+|		|				|-------settings
+|		|		|-------routes		  			#存放与路由相关的，注册函数、回调函数
+|		|		|-------states		  			#存放全局共享状态
+|		|		|-------uitls		  			#存放全局共享的工具类函数
+|		|		|-------widgets		  			#存放所有page所共享的公共widget
+|		|		|-------main.dart	  			#项目的入口文件 NOTE：不要去修改它
+|		|-------analysis_options.yaml 			#存放Dart的语法分析规则 NOTE：不要去修改它
+|		|-------pubspec.yaml		  			#存放项目的依赖文件 NOTE：不要去修改它
+|
+|-------LICENSE									#存放协议相关
+|		
+|-------README.md								#存放项目介绍		
+```
+
+### 8.1 对于开发的目录规范
+
+1. 每个page必须存放在page目录下的一个目录中，如`dashboard.dart`则应该存放在`WillON/ui_example/lib/page/dashboard`下。
+
+2. 与page目录同名的dart文件应该放在page目录下作为该目录的顶级文件（**顶级文件就是在直接处于该目录下的文件，而不处于该目录的子目录下**），如：`dashboard.dart`应该放在`/page/dashboard`下，而不能放在其目录的子目录下
+
+   1. `/page/dashboard/subdirectory/dashboard.dart` 这种写法是错误的
+   2. `/page/dashboard/dashboard.dar` 这种写法是正确的
+
+3. 对于每个page，该page目录下只能拥有一个顶级文件，作为该page的入口文件，对于该page所使用到的子widget或者util，应该在该page目录下新建一个`widgets`和`utils`目录来存放，而不应该放在page目录下。
+
+   ```
+   good
+   
+   page
+   |-------dashboard
+   		|-------utils
+   		|		|-------utils.dart
+   		|-------widgets
+   		|		|-------component1.dart
+   		|		|-------component2.dart
+   		|-------dashboard.dart
+   
+   bad
+   
+   page
+   |-------dashboard
+   		|-------utils.dart
+   		|-------component1.dart
+   		|-------component2.dart
+   		|-------dashboard.dart
+   ```
+
+4. 对于多个页面会使用到的公共`widget`，应该将其抽取到`/lib/widgets`目录中，并使用统一导出
+
+5. 对于每个页面的路由注册，应该放到`/lib/routes`目录中，进行统一注册，进行权限校验以及生命周期的处理
+
+6. 对于多个页面会使用到的`state`，应该放在`/lib/states`目录中，进行统一的导出
+
+7. 对于多个页面会使用到的`util`，应该放在`/lib/utils`目录中，进行统一的导出使用
+
+8. 对于所有静态资源，应该放在`ui_example/assets`中，进行统一的管理，对于某个个页面会使用到的静态资源，在`ui_example/assets`下新建一个属于该页面的目录用于存放该页面专属的静态资源
+
+   ```
+   good
+   
+   ui_example
+   |-------assets
+   		|-------dashboard
+   		|		|-------book.jpg
+   		|-------allblogs
+   		|		|-------blog.jpg
+   		|		|-------icon.jpg
+   		|-------common_image.jpg
+   
+   bad
+   
+   ui_example
+   |-------assets
+   		|-------image.png
+   		|-------image1.jpg
+   		|-------image3.jpg
+   		|-------image4.jpg
+   ```
+
+
+---
+##  9. <a name='More'></a>更多细化
+
+###  9.1. <a name='LambdaWidget'></a>关于重复widget试行办法
 
 > 在实际编程中，由于各种组件会经常重复性使用，因此导致**代码量及其冗余**，为解决此情况的发生，故有此办法。
 
