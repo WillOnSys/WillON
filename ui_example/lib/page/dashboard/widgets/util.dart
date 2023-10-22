@@ -32,7 +32,7 @@ class OptionBar extends StatelessWidget {
 class BlogCard extends StatelessWidget {
   final Text? _title;
   final Text? _subtitle;
-  final String _image;
+  final Widget _image;
   final Icon? _icon;
   final Color _cardColor;
 
@@ -44,7 +44,7 @@ class BlogCard extends StatelessWidget {
       color: _cardColor,
       child: Row(
         children: [
-          Image.asset(_image, width: 150,),
+          _image,
           Expanded(
             child: ListTile(
               title: _title,
