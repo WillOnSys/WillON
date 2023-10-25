@@ -9,12 +9,15 @@ import 'package:ui_example/page/dashboard/widgets/dashboard_second.dart';
 class DashBoardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Flex(
-      direction: Axis.horizontal,
-      children: [
-        FirstPage(),
-        SecondPage(),
-      ],
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Flex(
+        direction: Axis.horizontal,
+        children: [
+          FirstPage(),
+          SecondPage(),
+        ],
+      ),
     );
   }
 }

@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:ui_example/page/main/main_frame.dart';
+import 'package:ui_example/page/login/login.dart';
 
 /**
  * @author Chen Miao
@@ -19,9 +19,11 @@ class WillON extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal.shade400),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal.shade400),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
-      home: WillONMainFrame(),
+      home: LoginPage(),
+      // home: LoginPage(),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ui_example/page/login/widgets/util.dart';
-import 'package:ui_example/page/main/main_frame.dart';
+import 'package:ui_example/page/main/main_frame_fix.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoginFormRoute extends StatefulWidget {

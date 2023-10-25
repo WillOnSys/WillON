@@ -72,7 +72,7 @@ class WillONMainFrameState extends State<WillONMainFrame> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Will ON'),
+                        // Text('Will ON'),
                         MinimizeWindowButton(),
                         MaximizeWindowButton(),
                         CloseWindowButton(),
@@ -82,44 +82,53 @@ class WillONMainFrameState extends State<WillONMainFrame> {
                 ),
               ),
               Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SafeArea(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(75.0, 40.0, 75.0, 40.0),
-                              child: Text('Will ON', style: TextStyle(fontSize: 32.0),),
-                            ),
-                            _navigationBox(200, 300, _baseColorTheme, _applicationList, _chooseAppIdx, (value){
-                              setState(() {
-                                _chooseAppIdx = value;
-                              });
-                            }),
-                            SizedBox(
-                              height: 100,
-                            ),
-                            _navigationBox(200, 100, _baseColorTheme, _settingList, _chooseSetIdx, (value){
-                              setState(() {
-                                _chooseSetIdx = value;
-                              });
-                            }),
-                          ],
-                        ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [Color.fromRGBO(201, 217, 190, 1), Color.fromRGBO(198,206,225, 1)],
                     ),
-                    Expanded(
-                      child: Container(
-                        color: Colors.white,
-                        // TODO 这里需要构思一个良构去解决app和set page的冲突
-                        // TIPS 可以采取使用反射
-                        child: appPage,
-                        // child: switch (appPage) {
-              
-                        // },
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SafeArea(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(75.0, 40.0, 75.0, 40.0),
+                                child: Text('Will ON', style: TextStyle(fontSize: 32.0),),
+                              ),
+                              _navigationBox(200, 300, _baseColorTheme, _applicationList, _chooseAppIdx, (value){
+                                setState(() {
+                                  _chooseAppIdx = value;
+                                });
+                              }),
+                              SizedBox(
+                                height: 100,
+                              ),
+                              _navigationBox(200, 100, _baseColorTheme, _settingList, _chooseSetIdx, (value){
+                                setState(() {
+                                  _chooseSetIdx = value;
+                                });
+                              }),
+                            ],
+                          ),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: Container(
+                          color: Colors.white,
+                          // TODO 这里需要构思一个良构去解决app和set page的冲突
+                          // TIPS 可以采取使用反射
+                          child: appPage,
+                          // child: switch (appPage) {
+                              
+                          // },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
